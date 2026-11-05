@@ -25,31 +25,25 @@ jobs:
         uses: actions/checkout@v5
 
       # 2. Розпакування Android-проєкту
+      
       - name: Extract Android project
-        run: |
-          mkdir -p source
-          unzip -q Pixel8_RAM_Optimizer_v2.1_Source.zip -d source
-
-      # 3. Пошук кореневої папки проєкту
-      - name: Locate Android project
-        id: project
         shell: bash
         run: |
-          SETTINGS=$(find source -type f \
-            \( -name settings.gradle \
-            -o -name settings.gradle.kts \) \
+          mkdir -p source
+
+          ZIP_FILE=$(find . -maxdepth 3 -type f \
+            -iname '*Optimizer*Source*.zip' \
+            ! -path './.git/*' \
             -print -quit)
 
-          if [ -z "$SETTINGS" ]; then
-            echo "ERROR: Gradle settings file not found"
-            find source -maxdepth 5 -type f
+          if [ -z "$ZIP_FILE" ]; then
+            echo "ERROR: Android source ZIP not found!"
+            find . -maxdepth 3 -type f
             exit 1
           fi
 
-          PROJECT_DIR="$(dirname "$SETTINGS")"
-
-          echo "dir=$PROJECT_DIR" >> "$GITHUB_OUTPUT"
-          echo "Android project: $PROJECT_DIR"
+          echo "Found archive: $ZIP_FILE"
+          unzip -q "$ZIP_FILE" -d source
 
       # 4. Встановлення Java 17
       - name: Set up Java 17
