@@ -6,7 +6,7 @@ on:
     branches:
       - main
     paths:
-      - 'Pixel8_RAM_Optimizer_v2_Source.zip'
+      - 'Pixel8_RAM_Optimizer_v2.1_Source.zip'
       - '.github/workflows/android-build.yml'
 
   workflow_dispatch:
