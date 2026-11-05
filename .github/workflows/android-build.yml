@@ -28,7 +28,7 @@ jobs:
       - name: Extract Android project
         run: |
           mkdir -p source
-          unzip -q Pixel8_RAM_Optimizer_v2_Source.zip -d source
+          unzip -q Pixel8_RAM_Optimizer_v2.1_Source.zip -d source
 
       # 3. Пошук кореневої папки проєкту
       - name: Locate Android project
